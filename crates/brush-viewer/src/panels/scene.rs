@@ -227,7 +227,6 @@ runs consider using the native app."#,
                     ui.label("Error: ".to_owned() + &e.to_string());
                 }
                 ViewerMessage::Splats { iter: _, splats } => {
-                    self.draw_splats(ui, context, &splats);
 
                     ui.horizontal(|ui| {
                         if self.is_training {
@@ -248,6 +247,7 @@ runs consider using the native app."#,
 
                             ui.scope(|ui| {
                                 ui.style_mut().visuals.selection.bg_fill = Color32::DARK_RED;
+                                ui.style_mut().visuals.selection.stroke.color = Color32::WHITE;
                                 if ui
                                     .selectable_label(self.live_update, "🔴 Live update splats")
                                     .clicked()
@@ -294,6 +294,8 @@ runs consider using the native app."#,
                             }
                         }
                     });
+
+                    self.draw_splats(ui, context, &splats);
                 }
                 _ => {}
             }
